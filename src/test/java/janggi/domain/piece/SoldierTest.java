@@ -47,7 +47,7 @@ class SoldierTest {
     }
 
     @Test
-    void 쫄병이_뒤로_이동_불가능() {
+    void 빨간_쫄병이_뒤로_이동_불가능() {
         // given
         Soldier soldier = new Soldier(PieceColor.RED);
 
@@ -61,6 +61,23 @@ class SoldierTest {
         // then
         assertThat(canMove).isFalse();
     }
+
+    @Test
+    void 파란_쫄병이_아래로_이동_불가능() {
+        // given
+        Soldier soldier = new Soldier(PieceColor.BLUE);
+
+        Position source = new Position(Row.FOUR, Column.ONE);
+        Position destination = new Position(Row.FIVE, Column.ONE);
+        PiecePath path = new PiecePath(source, destination);
+
+        // when
+        boolean canMove = soldier.isValidMovement(path);
+
+        // then
+        assertThat(canMove).isFalse();
+    }
+
 
     @Test
     void 졸병의_목적지에_같은팀이_있으면_이동불가() {
