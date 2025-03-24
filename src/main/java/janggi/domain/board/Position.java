@@ -21,6 +21,20 @@ public class Position {
         return new Position(row, col);
     }
 
+    public boolean canMove(Direction direction) {
+        try {
+            Row.from(this.rowValue() + direction.getX());
+            Column.from(this.columnValue() + direction.getY());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isInPalace() {
+        return Palace.isInPalace(this);
+    }
+
     public int rowValue() {
         return row.intValue();
     }

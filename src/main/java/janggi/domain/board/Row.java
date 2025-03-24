@@ -20,6 +20,9 @@ public enum Row {
     }
 
     public static Row from(int value) {
+        if(value == 10) {
+            return ZERO;
+        }
         return Arrays.stream(Row.values())
                 .filter(row -> row.value == value)
                 .findFirst()

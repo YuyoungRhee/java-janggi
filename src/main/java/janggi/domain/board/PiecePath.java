@@ -58,4 +58,16 @@ public class PiecePath {
         }
         return 0;
     }
+
+    public boolean isInPalacePath() {
+        return source.isInPalace() && destination.isInPalace();
+    }
+
+    public Position getSource() {
+        return source;
+    }
+
+    public Position getDestination() {
+        return destination;
+    }
 }
