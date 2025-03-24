@@ -16,6 +16,14 @@ public class PiecePath {
         return rowDifference() == 0 || columnDifference() == 0;
     }
 
+    public boolean isDiagonal() {
+        return Math.abs(rowDifference()) == Math.abs(columnDifference());
+    }
+
+    public boolean isInPalacePath() {
+        return source.isInPalace() && destination.isInPalace();
+    }
+
     public int rowDifference() {
         return destination.rowValue() - source.rowValue();
     }
@@ -24,24 +32,19 @@ public class PiecePath {
         return destination.columnValue() - source.columnValue();
     }
 
-    public Position getFractionalPosition(int divisor) {
-        int newRow = source.rowValue() + rowDifference() / divisor;
-        int newColumn = source.columnValue() + columnDifference() / divisor;
+    public List<Position> tracePositionsByDirection(List<Direction> directions) {
+        List<Position> positions = new ArrayList<>();
 
-        return new Position(Row.from(newRow), Column.from(newColumn));
-    }
-
-    public Position getFactionalPositionToTarget(Position other, int divisor) {
-        int newRow = other.rowValue() + rowDifference() / divisor;
-        int newColumn = other.columnValue() + columnDifference() / divisor;
-
-        return new Position(Row.from(newRow), Column.from(newColumn));
+        Position current = source;
+        for (Direction direction : directions) {
+            current = current.move(direction);
+            positions.add(current);
+        }
+        return positions;
     }
 
     public List<Position> getBetweenPositions() {
-        int rowDir = getDirection(rowDifference());
-        int columnDir = getDirection(columnDifference());
-        Direction direction = Direction.from(rowDir, columnDir);
+        Direction direction = calculateDirection();
 
         Position current = source.move(direction);
         List<Position> positions = new ArrayList<>();
@@ -52,15 +55,18 @@ public class PiecePath {
         return positions;
     }
 
-    public int getDirection(int difference) {
+    private Direction calculateDirection() {
+        int rowDir = getDirectionValue(rowDifference());
+        int colDir = getDirectionValue(columnDifference());
+
+        return Direction.from(rowDir,colDir);
+    }
+
+    private int getDirectionValue(int difference) {
         if(difference != 0) {
             return difference / Math.abs(difference);
         }
         return 0;
-    }
-
-    public boolean isInPalacePath() {
-        return source.isInPalace() && destination.isInPalace();
     }
 
     public Position getSource() {
