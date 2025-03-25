@@ -12,7 +12,7 @@ public enum Row {
     SEVEN(7),
     EIGHT(8),
     NINE(9),
-    ZERO(0),
+    ZERO(10),
     ;
 
     Row(int value) {
@@ -20,7 +20,7 @@ public enum Row {
     }
 
     public static Row from(int value) {
-        if(value == 10) {
+        if(value == 0) {
             return ZERO;
         }
         return Arrays.stream(Row.values())
@@ -37,13 +37,6 @@ public enum Row {
     private final int value;
 
     public int intValue() {
-        if(this == Row.ZERO) {
-            return 10;
-        }
-        return value;
-    }
-
-    public int getValue() {
         return value;
     }
 }
