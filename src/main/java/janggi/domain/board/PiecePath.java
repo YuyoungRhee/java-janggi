@@ -43,6 +43,14 @@ public class PiecePath {
         return positions;
     }
 
+    public boolean canReachToDestination(Direction direction) {
+        if(!source.canMove(direction)) {
+            return false;
+        }
+        Position moved = source.move(direction);
+        return moved.equals(destination);
+    }
+
     public List<Position> getBetweenPositions() {
         Direction direction = calculateDirection();
 
@@ -69,11 +77,4 @@ public class PiecePath {
         return 0;
     }
 
-    public Position getSource() {
-        return source;
-    }
-
-    public Position getDestination() {
-        return destination;
-    }
 }

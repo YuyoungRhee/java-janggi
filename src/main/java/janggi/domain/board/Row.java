@@ -29,6 +29,11 @@ public enum Row {
                 .orElseThrow(() -> new IllegalArgumentException("해당 숫자에 맞는 Row가 없습니다."));
     }
 
+    public static boolean isValid(int rowValue) {
+        return Arrays.stream(Row.values())
+                .anyMatch(row -> row.intValue() == rowValue);
+    }
+
     private final int value;
 
     public int intValue() {

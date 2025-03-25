@@ -25,13 +25,11 @@ public class Guard extends Piece {
 
     @Override
     public boolean isValidMovement(PiecePath path) {
-        if(!path.isInPalacePath()) {
+        if (!path.isInPalacePath()) {
             return false;
         }
-
         return GENERAL_DIRECTION.stream()
-                .filter(direction -> path.getSource().canMove(direction))
-                .anyMatch(direction -> path.getSource().move(direction).equals(path.getDestination()));
+                .anyMatch(path::canReachToDestination);
     }
 
     @Override
